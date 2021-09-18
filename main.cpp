@@ -1,6 +1,7 @@
 #include <iostream>
 #include <gravity/game.hpp>
 #include <SFML/Graphics.hpp>
+#include <Eigen/Dense>
 
 
 int main()

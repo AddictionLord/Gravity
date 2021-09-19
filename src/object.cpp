@@ -5,6 +5,7 @@
 //--------------------------------------------
 Object::Object(
     const float& radius,
+    const float& mass,
     sf::Color color
 )
 {
@@ -14,41 +15,44 @@ Object::Object(
 
 
 //--------------------------------------------
-auto Object::setPosition(Vec2 position) -> void
+auto Object::setPosition(Vec2 pos) -> void
 {
-
+    position = pos;
 }
-
 
 //--------------------------------------------
-auto Object::setVelocity(Vec2 velocity) -> void
+auto Object::setVelocity(Vec2 vel) -> void
 {
-
+    velocity = vel;
 }
-
 
 //--------------------------------------------
-auto Object::setAcceleration(Vec2 acceleration) -> void
+auto Object::setAcceleration(Vec2 accel) -> void
 {
-
+    acceleration = accel;
 }
+
 
 //--------------------------------------------
 auto Object::getPosition() -> Vec2
 {
-
+    return position;
 }
-
 
 //--------------------------------------------
 auto Object::getVelocity() -> Vec2
 {
-
+    return velocity;
 }
-
 
 //--------------------------------------------
 auto Object::getAcceleration() -> Vec2
 {
+    return acceleration;
+}
 
+//--------------------------------------------
+auto Object::getMass() -> float&
+{
+    return mass;
 }

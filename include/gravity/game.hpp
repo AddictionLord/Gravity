@@ -17,6 +17,7 @@ public:
     // colour, init position, velocity and acceleration
     auto addObject(
         const float& radius,
+        const float& mass,
         const sf::Color& color,
         const Vec2& position,
         const Vec2& velocity,

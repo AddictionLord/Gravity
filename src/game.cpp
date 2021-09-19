@@ -25,38 +25,56 @@ auto Game::addObject(
 auto Game::computePhysics() -> void
 {
     Vec2 normalized_dir_vector, fromVec, toVec;
-    Vec2 position, velocity, acceleration = composeVec2(0, 0);
+    Vec2 position, velocity, acceleration;
     float distance;
     
     for (size_t i = 0; i < objects.size(); i++)
     {
+        acceleration = composeVec2(0, 0);
         fromVec = objects[i]->getPosition();
+
         for (size_t j = 0; j < objects.size(); j++)
         {
+            if (i == j)
+            {
+                std::cout << "Continued" << std::endl;
+                continue;
+            }
+
             toVec = objects[j]->getPosition();
+
 
             distance = computeDistanceBetweenVectors(
                 fromVec, toVec
             );
+            std::cout << "Distance: " << distance << std::endl << std::endl;
 
             normalized_dir_vector = getNormDirectionVec2FromTo(
-                fromVec, toVec
+                toVec, fromVec
             );
 
-            acceleration -= (GRAVITY * objects[j]->getMass() / distance)
+            acceleration -= (GRAVITY * objects[j]->getMass()) / (std::pow(distance, 2))
                 * normalized_dir_vector;
+
+            std::cout << "Acceleration: " << std::endl << acceleration << std::endl;
+           
         }
 
         velocity = objects[i]->getVelocity() + acceleration;
         objects[i]->setVelocity(velocity);
         position = objects[i]->getPosition() + velocity;
         objects[i]->setPosition(position);
+        std::cout << "Position: " << std::endl << position << std::endl;
+        
     }
 }
 
 
 //--------------------------------------------
-auto Game::drawObjects() -> void
+auto Game::drawObjects(sf::RenderWindow& window) -> void
 {
-
+    for (size_t i = 0; i < objects.size(); i++)
+    {
+        window.draw(objects[i]->getShape());
+    }
 }

@@ -10,8 +10,8 @@ class Game
 {
 
 public:
-    Game();
-    ~Game();
+    Game(){};
+    //~Game();
 
     // Include object (2D circle) with defined radius,
     // colour, init position, velocity and acceleration
@@ -31,7 +31,7 @@ public:
 
     // After physics is computed, this method is called
     // to redraw the scene
-    auto drawObjects() -> void;
+    auto drawObjects(sf::RenderWindow& window) -> void;
 
 
 private:

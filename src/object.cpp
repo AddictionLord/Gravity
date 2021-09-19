@@ -9,6 +9,7 @@ Object::Object(
     sf::Color color
 )
 {
+    this->mass = mass;
     shape.setRadius(radius);
     shape.setFillColor(color);
 }
@@ -18,6 +19,7 @@ Object::Object(
 auto Object::setPosition(Vec2 pos) -> void
 {
     position = pos;
+    shape.setPosition(position(0), position(1));
 }
 
 //--------------------------------------------
@@ -55,4 +57,10 @@ auto Object::getAcceleration() -> Vec2
 auto Object::getMass() -> float&
 {
     return mass;
+}
+
+//--------------------------------------------
+auto Object::getShape() -> sf::CircleShape&
+{
+    return shape;
 }

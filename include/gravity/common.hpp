@@ -2,7 +2,7 @@
 #include <Eigen/Dense>
 #include <cmath>
 
-const float GRAVITY = 2.874;
+const float GRAVITY = 0.00081;
 
 
 using Vec2 = Eigen::Vector2f;

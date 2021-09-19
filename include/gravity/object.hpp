@@ -8,10 +8,10 @@ class Object
 public:
     Object(
         const float& radius = 20.f,
-        const float& mass = 20.f,
+        const float& mass = 20.0,
         sf::Color color = sf::Color::Green
     );
-    ~Object(){};
+    //~Object(){};
 
     // Setting position, velocity and acceleration
     auto setPosition(Vec2 pos) -> void;
@@ -24,8 +24,11 @@ public:
     auto getVelocity() -> Vec2;
     auto getAcceleration() -> Vec2;
 
-    // return mass of the object
+    // returns mass of the object
     auto getMass() -> float&;
+
+    // returns reference to shape object for drawing 
+    auto getShape() -> sf::CircleShape&;
 
 
 

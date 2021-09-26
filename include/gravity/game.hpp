@@ -11,7 +11,7 @@ class Game
 
 public:
     Game(){};
-    //~Game();
+    ~Game(){};
 
     // Include object (2D circle) with defined radius,
     // colour, init position, velocity and acceleration
@@ -21,7 +21,8 @@ public:
         const sf::Color& color,
         const Vec2& position,
         const Vec2& velocity,
-        const Vec2& acceleration
+        const Vec2& acceleration,
+        const bool& isStatic = false
     ) -> void;
 
     // Takes objects positions, calculates accel from

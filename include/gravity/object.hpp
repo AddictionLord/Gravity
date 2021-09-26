@@ -30,11 +30,15 @@ public:
     // returns reference to shape object for drawing 
     auto getShape() -> sf::CircleShape&;
 
+    // object is not moving
+    auto makeStatic() -> void;
+
 
 
 
 private:
     float mass;
+    bool isStatic;
     sf::CircleShape shape;
     Vec2 position;
     Vec2 velocity;

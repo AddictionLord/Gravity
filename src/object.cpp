@@ -19,7 +19,10 @@ Object::Object(
 auto Object::setPosition(Vec2 pos) -> void
 {
     position = pos;
-    shape.setPosition(position(0), position(1));
+    if (!isStatic)
+    {
+        shape.setPosition(position(0), position(1));
+    }
 }
 
 //--------------------------------------------
@@ -63,4 +66,10 @@ auto Object::getMass() -> float&
 auto Object::getShape() -> sf::CircleShape&
 {
     return shape;
+}
+
+//--------------------------------------------
+auto Object::makeStatic() -> void
+{
+    isStatic = true;
 }

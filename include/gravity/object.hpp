@@ -33,6 +33,8 @@ public:
     // object is not moving
     auto makeStatic() -> void;
 
+    auto getStatic() -> bool;
+
 
 
 

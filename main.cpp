@@ -7,7 +7,7 @@
 
 int main()
 {
-    sf::Vector2f viewCenter(960.f, 540.f);
+    sf::Vector2f viewCenter(0.f, 0.f);
     sf::Vector2f resolution(1920.f, 1080.f);
 
     sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Gravity!");
@@ -17,28 +17,18 @@ int main()
     sf::View view(viewCenter, resolution);
 
     auto g = Game();
-    g.addObject(20.0, 1, sf::Color::Green,
-        composeVec2(150.0, 150.0),
-        composeVec2(0.0, .1),
+    g.addObject(30.0, 15.0, sf::Color::Green,
+        composeVec2(0.0, 0.0),
+        composeVec2(6.0, -2.5),
         composeVec2(0.0, 0.0)
     );
-    g.addObject(20.0, 2, sf::Color::Red,
-        composeVec2(1650, 150.0),
-        composeVec2(-.1, .0),
-        composeVec2(0.0, 0.0)
-    );
-    g.addObject(20.0, 1, sf::Color::Blue,
-        composeVec2(950.0, 1000.0),
-        composeVec2(0.1, -.1),
-        composeVec2(0.0, 0.0)
-    );
-    g.addObject(10.0, 1, sf::Color::White,
-        composeVec2(950.0, 500.0),
-        composeVec2(0.0, -.2),
+    g.addObject(30.0, 15.0, sf::Color::Red,
+        composeVec2(1000.0, 0.0),
+        composeVec2(6.0, 2.5),
         composeVec2(0.0, 0.0)
     );
 
-
+    // Game loop
     while (window.isOpen())
     {
         sf::Event event;
@@ -50,6 +40,7 @@ int main()
                 window.close();
                 break;
 
+            // Zoom mechanics 
             case sf::Event::MouseWheelScrolled:
                 if (event.mouseWheelScroll.delta >= 1)
                 {
@@ -62,14 +53,20 @@ int main()
             }
         }
 
+        // Panning mechanics
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             view.setCenter(viewCenter.x -= 15, viewCenter.y);
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             view.setCenter(viewCenter.x += 15, viewCenter.y);
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             view.setCenter(viewCenter.x, viewCenter.y -= 15);
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             view.setCenter(viewCenter.x, viewCenter.y += 15);
+
+
 
         g.computePhysics();
 

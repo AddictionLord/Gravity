@@ -73,3 +73,10 @@ auto Object::makeStatic() -> void
 {
     isStatic = true;
 }
+
+//--------------------------------------------
+auto Object::getStatic() -> bool
+{
+    return isStatic;
+}
+

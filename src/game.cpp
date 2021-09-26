@@ -49,10 +49,13 @@ auto Game::computePhysics() -> void
                 * normalized_dir_vector;
         }
 
-        velocity = objects[i]->getVelocity() + acceleration;
-        objects[i]->setVelocity(velocity);
-        position = objects[i]->getPosition() + velocity;
-        objects[i]->setPosition(position);
+        if (!objects[i]->getStatic())
+        {
+            velocity = objects[i]->getVelocity() + acceleration;
+            objects[i]->setVelocity(velocity);
+            position = objects[i]->getPosition() + velocity;
+            objects[i]->setPosition(position);
+        }
     }
 }
 

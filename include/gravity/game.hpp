@@ -34,6 +34,11 @@ public:
     // to redraw the scene
     auto drawObjects(sf::RenderWindow& window) -> void;
 
+    // Panning mechanics
+    auto panningMechanics(
+        sf::View& view,
+        sf::Vector2f& viewCenter) -> void;
+
 
 private:
 

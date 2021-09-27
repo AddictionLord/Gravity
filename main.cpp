@@ -53,21 +53,7 @@ int main()
             }
         }
 
-        // Panning mechanics
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            view.setCenter(viewCenter.x -= 15, viewCenter.y);
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            view.setCenter(viewCenter.x += 15, viewCenter.y);
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            view.setCenter(viewCenter.x, viewCenter.y -= 15);
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            view.setCenter(viewCenter.x, viewCenter.y += 15);
-
-
-
+        g.panningMechanics(view, viewCenter);
         g.computePhysics();
 
         window.clear();

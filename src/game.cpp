@@ -27,28 +27,31 @@ auto Game::addObject(
 //--------------------------------------------
 auto Game::computePhysics() -> void
 {
-    Vec2 normalized_dir_vector, fromVec, toVec, position, velocity, acceleration;
-    float distance;
+    Vec2 normalized_dir_vector, fromVecPos, toVecPos, position, velocity, acceleration;
+    float distance, fromVecMass, toVecMass;
     
     for (size_t i = 0; i < objects.size(); i++)
     {
         acceleration = composeVec2(0, 0);
-        fromVec = objects[i]->getPosition();
+        fromVecPos = objects[i]->getPosition();
+        fromVecMass = objects[i]->getMass(); 
 
         for (size_t j = 0; j < objects.size(); j++)
         {
-            if (i == j){continue;}
+            if (i == j) continue;
 
-            toVec = objects[j]->getPosition();
+            toVecPos = objects[j]->getPosition();
+            toVecMass = objects[j]->getMass();
 
-            distance = computeDistanceBetweenVectors(fromVec, toVec);
+            distance = computeDistanceBetweenVectors(fromVecPos, toVecPos);
             distance < 1 ? distance = 1 : distance;
-            normalized_dir_vector = getNormDirectionVec2FromTo(toVec, fromVec);
+            normalized_dir_vector = getNormDirectionVec2FromTo(toVecPos, fromVecPos);
 
             acceleration -= (GRAVITY * objects[j]->getMass()) / (std::pow(distance, 2))
                 * normalized_dir_vector;
         }
 
+        // Static objects don't get velocity and position updated
         if (!objects[i]->getStatic())
         {
             velocity = objects[i]->getVelocity() + acceleration;
@@ -68,3 +71,26 @@ auto Game::drawObjects(sf::RenderWindow& window) -> void
         window.draw(objects[i]->getShape());
     }
 }
+
+
+//--------------------------------------------
+auto Game::panningMechanics(
+    sf::View& view, 
+    sf::Vector2f& viewCenter) -> void
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        view.setCenter(viewCenter.x -= 15, viewCenter.y);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+        view.setCenter(viewCenter.x += 15, viewCenter.y);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+        view.setCenter(viewCenter.x, viewCenter.y -= 15);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+        view.setCenter(viewCenter.x, viewCenter.y += 15);
+    }}

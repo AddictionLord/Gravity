@@ -9,6 +9,7 @@ Object::Object(
     sf::Color color
 )
 {
+    this->radius = radius;
     this->mass = mass;
     shape.setRadius(radius);
     shape.setFillColor(color);
@@ -80,3 +81,13 @@ auto Object::getStatic() -> bool
     return isStatic;
 }
 
+//--------------------------------------------
+auto Object::isInCollision(Object& otherObject) -> bool
+{
+    auto squared_distance = computeSquaredDistanceBetweenVectors(
+        this->position, otherObject.position
+    );
+    auto squared_radiuses = std::pow(this->radius + otherObject.radius, 2);
+
+    return (squared_radiuses >= squared_distance);
+}

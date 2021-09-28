@@ -27,7 +27,8 @@ auto Game::addObject(
 //--------------------------------------------
 auto Game::computePhysics() -> void
 {
-    Vec2 normalized_dir_vector, fromVecPos, toVecPos, position, velocity, acceleration;
+    Vec2 normalized_dir_vector, fromVecPos, toVecPos, position, velocity, 
+        acceleration;
     float distance, fromVecMass, toVecMass;
     
     for (size_t i = 0; i < objects.size(); i++)
@@ -47,8 +48,15 @@ auto Game::computePhysics() -> void
             distance < 1 ? distance = 1 : distance;
             normalized_dir_vector = getNormDirectionVec2FromTo(toVecPos, fromVecPos);
 
-            acceleration -= (GRAVITY * objects[j]->getMass()) / (std::pow(distance, 2))
-                * normalized_dir_vector;
+            acceleration += physics::gravitationalAcceleration(
+                toVecMass, distance, normalized_dir_vector
+            );
+
+            if (objects[i]->isInCollision(*objects[j]))
+            {
+                // Handle collision
+            }
+            
         }
 
         // Static objects don't get velocity and position updated
@@ -93,4 +101,5 @@ auto Game::panningMechanics(
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         view.setCenter(viewCenter.x, viewCenter.y += 15);
-    }}
+    }
+}

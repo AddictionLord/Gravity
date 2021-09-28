@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <gravity/object.hpp>
 #include <memory>
+#include <gravity/physicsUtils.hpp>
 
 
 

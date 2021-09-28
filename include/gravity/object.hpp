@@ -1,5 +1,6 @@
 #include <gravity/common.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 
 
@@ -35,15 +36,20 @@ public:
 
     auto getStatic() -> bool;
 
+    auto isInCollision(Object& otherObject) -> bool;
 
 
-
-private:
+protected:
     float mass;
-    bool isStatic;
-    sf::CircleShape shape;
+    float radius;
     Vec2 position;
     Vec2 velocity;
     Vec2 acceleration;
+
+
+private:
+    bool isStatic;
+    sf::CircleShape shape;
+    
 
 };

@@ -49,7 +49,6 @@ protected:
 
 private:
     bool isStatic;
-    sf::CircleShape shape;
-    
+    sf::CircleShape shape;  
 
 };

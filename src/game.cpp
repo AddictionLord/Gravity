@@ -12,15 +12,13 @@ auto Game::addObject(
     const Vec2& acceleration,
     const bool& isStatic) -> void
 {
-    auto new_object = std::make_shared<Object>(radius, mass, color);
+    auto& new_object = objects.emplace_back(radius, mass, color);
 
-    new_object->setPosition(position);
-    new_object->setVelocity(velocity);
-    new_object->setAcceleration(acceleration);
+    new_object.setPosition(position);
+    new_object.setVelocity(velocity);
+    new_object.setAcceleration(acceleration);
 
-    if (isStatic) {new_object->makeStatic();}
-
-    objects.push_back(new_object);
+    if (isStatic) {new_object.makeStatic();}
 }
 
 
@@ -34,15 +32,15 @@ auto Game::computePhysics() -> void
     for (size_t i = 0; i < objects.size(); i++)
     {
         acceleration = composeVec2(0, 0);
-        fromVecPos = objects[i]->getPosition();
-        fromVecMass = objects[i]->getMass(); 
+        fromVecPos = objects[i].getPosition();
+        fromVecMass = objects[i].getMass(); 
 
         for (size_t j = 0; j < objects.size(); j++)
         {
             if (i == j) continue;
 
-            toVecPos = objects[j]->getPosition();
-            toVecMass = objects[j]->getMass();
+            toVecPos = objects[j].getPosition();
+            toVecMass = objects[j].getMass();
 
             distance = computeDistanceBetweenVectors(fromVecPos, toVecPos);
             distance < 1 ? distance = 1 : distance;
@@ -52,7 +50,7 @@ auto Game::computePhysics() -> void
                 toVecMass, distance, normalized_dir_vector
             );
 
-            if (objects[i]->isInCollision(*objects[j]))
+            if (objects[i].isInCollision(objects[j]))
             {
                 // Handle collision
             }
@@ -60,12 +58,12 @@ auto Game::computePhysics() -> void
         }
 
         // Static objects don't get velocity and position updated
-        if (!objects[i]->getStatic())
+        if (!objects[i].getStatic())
         {
-            velocity = objects[i]->getVelocity() + acceleration;
-            objects[i]->setVelocity(velocity);
-            position = objects[i]->getPosition() + velocity;
-            objects[i]->setPosition(position);
+            velocity = objects[i].getVelocity() + acceleration;
+            objects[i].setVelocity(velocity);
+            position = objects[i].getPosition() + velocity;
+            objects[i].setPosition(position);
         }
     }
 }
@@ -76,7 +74,7 @@ auto Game::drawObjects(sf::RenderWindow& window) -> void
 {
     for (size_t i = 0; i < objects.size(); i++)
     {
-        window.draw(objects[i]->getShape());
+        window.draw(objects[i].getShape());
     }
 }
 

@@ -45,6 +45,6 @@ private:
 
     // Vector is used to store pointers to 
     // every created object
-    std::vector<std::shared_ptr<Object>> objects;
+    std::vector<Object> objects;
 
 };

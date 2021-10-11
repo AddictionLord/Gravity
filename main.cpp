@@ -17,27 +17,27 @@ int main()
     sf::View view(viewCenter, resolution);
 
     auto g = Game();
-    // g.addObject(30.0, 15.0, sf::Color::Green,
-    //     composeVec2(0.0, 0.0),
-    //     composeVec2(6.0, -2.5),
-    //     composeVec2(0.0, 0.0)
-    // );
-    // g.addObject(30.0, 15.0, sf::Color::Red,
-    //     composeVec2(1000.0, 0.0),
-    //     composeVec2(6.0, 2.5),
-    //     composeVec2(0.0, 0.0)
-    // );
-
     g.addObject(30.0, 15.0, sf::Color::Green,
         composeVec2(0.0, 0.0),
-        composeVec2(0.0, 0.0),
+        composeVec2(6.0, -2.5),
         composeVec2(0.0, 0.0)
     );
     g.addObject(30.0, 15.0, sf::Color::Red,
         composeVec2(1000.0, 0.0),
-        composeVec2(0.0, 0.0),
+        composeVec2(6.0, 2.5),
         composeVec2(0.0, 0.0)
     );
+
+    // g.addObject(30.0, 15.0, sf::Color::Green,
+    //     composeVec2(0.0, 0.0),
+    //     composeVec2(0.0, 0.0),
+    //     composeVec2(0.0, 0.0)
+    // );
+    // g.addObject(30.0, 15.0, sf::Color::Red,
+    //     composeVec2(1000.0, 0.0),
+    //     composeVec2(0.0, 0.0),
+    //     composeVec2(0.0, 0.0)
+    // );
 
     // Game loop
     while (window.isOpen())

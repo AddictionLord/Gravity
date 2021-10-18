@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <gravity/object.hpp>
@@ -38,7 +40,13 @@ public:
     // Panning mechanics
     auto panningMechanics(
         sf::View& view,
-        sf::Vector2f& viewCenter) -> void;
+        sf::Vector2f& viewCenter
+    ) -> void;
+
+    // Collision handling function, returns velocity of objects
+    // after collision
+    auto handleCollision(Object& a, Object& b) -> std::tuple<Vec2, Vec2>;
+
 
 
 private:

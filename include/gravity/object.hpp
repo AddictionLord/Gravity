@@ -1,8 +1,10 @@
+#pragma once
+
 #include <gravity/common.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-
+class Game;
 
 class Object
 {
@@ -38,6 +40,8 @@ public:
 
     auto isInCollision(Object& otherObject) -> bool;
 
+    // friend auto Game::computePhysics() -> void;
+    // friend class Game;
 
 protected:
     float mass;

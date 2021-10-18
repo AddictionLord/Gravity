@@ -33,6 +33,7 @@ auto Game::computePhysics() -> void
     {
         acceleration = composeVec2(0, 0);
         fromVecPos = objects[i].getPosition();
+        // fromVecPos = objects[i].position;
         fromVecMass = objects[i].getMass(); 
 
         for (size_t j = 0; j < objects.size(); j++)
@@ -43,7 +44,6 @@ auto Game::computePhysics() -> void
             toVecMass = objects[j].getMass();
 
             distance = computeDistanceBetweenVectors(fromVecPos, toVecPos);
-            distance < 1 ? distance = 1 : distance;
             normalized_dir_vector = getNormDirectionVec2FromTo(toVecPos, fromVecPos);
 
             acceleration += physics::gravitationalAcceleration(
@@ -53,8 +53,10 @@ auto Game::computePhysics() -> void
             if (objects[i].isInCollision(objects[j]))
             {
                 // Handle collision
+                auto velocities = handleCollision(objects[i], objects[j]);
+                objects[i].setVelocity(std::get<0>(velocities));
+                objects[j].setVelocity(std::get<1>(velocities));
             }
-            
         }
 
         // Static objects don't get velocity and position updated
@@ -67,6 +69,38 @@ auto Game::computePhysics() -> void
         }
     }
 }
+
+
+//--------------------------------------------
+auto Game::handleCollision(Object& a, Object& b) -> std::tuple<Vec2, Vec2>
+{
+    auto aPos = a.getPosition();
+    auto bPos = b.getPosition();
+    auto aVel = a.getVelocity();
+    auto bVel = b.getVelocity();
+
+    auto x_like_axis = bPos - aPos;
+    auto x_axis = composeVec2(1, 0);
+    auto rotation_mat = computeRotationMatrix(x_like_axis, x_axis);
+
+    // Rotate to align x_like_axis to x_axis
+    aVel = rotation_mat * aVel;
+    bVel = rotation_mat * bVel;
+
+    float va = aVel(0);
+    float vb = bVel(0);
+
+    float ub = physics::computeVelocityAfterCollision(va, vb, a.getMass(), b.getMass());
+    float ua = physics::computeVelocityAfterCollision(vb, va, b.getMass(), a.getMass());
+
+    aVel(0) = ua;
+    bVel(0) = ub;
+
+    aVel = rotation_mat.inverse() * aVel;
+    bVel = rotation_mat.inverse() * bVel;
+
+    return std::make_tuple(aVel, bVel);
+} 
 
 
 //--------------------------------------------

@@ -89,13 +89,9 @@ auto Object::isInCollision(Object& otherObject) -> bool
         this->position, otherObject.position
     );
     auto squared_radiuses = std::pow(this->radius + otherObject.radius, 2);
-       
-    // std::cout << " Distance: " << squared_distance << "\n" << std::endl;
-    // std::cout << " Radiuses: " << squared_radiuses << "\n -----------------" << std::endl;
 
     return (squared_radiuses >= squared_distance);
 }
-
 
 //--------------------------------------------
 auto Object::overlaps(Object& otherObject) -> float

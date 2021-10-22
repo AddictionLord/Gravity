@@ -40,6 +40,9 @@ public:
 
     auto isInCollision(Object& otherObject) -> bool;
 
+    auto overlaps(Object& otherObject) -> float;
+
+
     // friend auto Game::computePhysics() -> void;
     // friend class Game;
 

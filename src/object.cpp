@@ -13,6 +13,7 @@ Object::Object(
     this->mass = mass;
     shape.setRadius(radius);
     shape.setFillColor(color);
+    shape.setOrigin(radius, radius);
 }
 
 
@@ -88,6 +89,19 @@ auto Object::isInCollision(Object& otherObject) -> bool
         this->position, otherObject.position
     );
     auto squared_radiuses = std::pow(this->radius + otherObject.radius, 2);
+       
+    // std::cout << " Distance: " << squared_distance << "\n" << std::endl;
+    // std::cout << " Radiuses: " << squared_radiuses << "\n -----------------" << std::endl;
 
     return (squared_radiuses >= squared_distance);
+}
+
+
+//--------------------------------------------
+auto Object::overlaps(Object& otherObject) -> float
+{
+    auto distance = computeDistanceBetweenVectors(this->position, otherObject.position);
+    auto radiuses = this->radius + otherObject.radius;
+
+    return (radiuses - distance) / 2;
 }

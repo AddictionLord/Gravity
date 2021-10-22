@@ -38,8 +38,22 @@ public:
     // Panning mechanics
     auto panningMechanics(
         sf::View& view,
-        sf::Vector2f& viewCenter) -> void;
+        sf::Vector2f& viewCenter
+    ) -> void;
 
+    // Function to handle collision between objects
+    auto handleCollision(
+        Object& a, 
+        Object& b
+    ) -> std::tuple<Vec2, Vec2>;
+
+    // Function to handle objects overlapping, ignoring
+    // physics, just shifting objects 
+    auto handleOverlapping(
+        Object& a,
+        Object& b,
+        float overlap
+    ) -> std::tuple<Vec2, Vec2>;
 
 private:
 

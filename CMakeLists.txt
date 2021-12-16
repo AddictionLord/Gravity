@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.6)
 
 project(gravity)
 
 find_package (Eigen3 REQUIRED)
 
 add_executable(${PROJECT_NAME} 
-    main.cpp 
+    src/main.cpp 
     src/game.cpp 
     src/object.cpp
 )

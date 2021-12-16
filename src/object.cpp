@@ -90,7 +90,7 @@ auto Object::isInCollision(Object& otherObject) -> bool
     );
     auto squared_radiuses = std::pow(this->radius + otherObject.radius, 2);
 
-    return (squared_radiuses >= squared_distance);
+    return squared_radiuses >= squared_distance;
 }
 
 //--------------------------------------------

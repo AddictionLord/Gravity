@@ -21,14 +21,7 @@ namespace physics
         const float& mb
     ) -> float
     {
-        return ((2 * va * ma) / (ma + mb)) + ((vb * (mb - ma)) / (mb + ma));
+        return 0.98 * ((2 * va * ma) / (ma + mb)) + ((vb * (mb - ma)) / (mb + ma));
     }
-
-
-//--------------------------------------------
-    // inline auto isInCollision()
-    // {
-
-    // }
 
 }

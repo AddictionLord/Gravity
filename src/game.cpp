@@ -39,22 +39,33 @@ auto Game::computePhysics() -> void
         {
             if (i == j) continue;
 
-            toVecPos = objects[j].getPosition();
-            toVecMass = objects[j].getMass();
-
-            distance = computeDistanceBetweenVectors(fromVecPos, toVecPos);
-            distance < 1 ? distance = 1 : distance;
-            normalized_dir_vector = getNormDirectionVec2FromTo(toVecPos, fromVecPos);
-
-            acceleration += physics::gravitationalAcceleration(
-                toVecMass, distance, normalized_dir_vector
-            );
-
             if (objects[i].isInCollision(objects[j]))
             {
+                auto overlap = objects[i].overlaps(objects[j]); 
+                if (overlap > 0)
+                {
+                    // Handle overlapping
+                    auto shifts = handleOverlapping(objects[i], objects[j], overlap);
+                    objects[i].setPosition(std::get<0>(shifts)); 
+                    objects[j].setPosition(std::get<1>(shifts)); 
+                }
                 // Handle collision
+                auto velocities = handleCollision(objects[i], objects[j]);
+                objects[i].setVelocity(std::get<0>(velocities));
+                objects[j].setVelocity(std::get<1>(velocities));
             }
-            
+            else
+            {
+                toVecPos = objects[j].getPosition();
+                toVecMass = objects[j].getMass();
+
+                distance = computeDistanceBetweenVectors(fromVecPos, toVecPos);
+                normalized_dir_vector = getNormDirectionVec2FromTo(toVecPos, fromVecPos);
+
+                acceleration += physics::gravitationalAcceleration(
+                    toVecMass, distance, normalized_dir_vector
+                );
+            }
         }
 
         // Static objects don't get velocity and position updated
@@ -66,6 +77,58 @@ auto Game::computePhysics() -> void
             objects[i].setPosition(position);
         }
     }
+}
+
+
+//--------------------------------------------
+auto Game::handleCollision(Object& a, Object& b) -> std::tuple<Vec2, Vec2>
+{
+    auto aPos = a.getPosition();
+    auto bPos = b.getPosition();
+    auto aVel = a.getVelocity();
+    auto bVel = b.getVelocity();
+
+    auto vel_diff = aVel - bVel;
+    auto dist_diff = aPos - bPos;
+
+    if (vel_diff(0) * dist_diff(0) + vel_diff(1) * dist_diff(1) <= 0) 
+    {
+        auto x_like_axis = bPos - aPos;
+        auto x_axis = composeVec2(1, 0);
+        auto rotation_mat = computeRotationMatrix(x_like_axis, x_axis);
+
+        // Rotate to align x_like_axis to x_axis
+        aVel = rotation_mat * aVel;
+        bVel = rotation_mat * bVel;
+
+        float va = aVel(0);
+        float vb = bVel(0);
+
+        float ub = physics::computeVelocityAfterCollision(va, vb, a.getMass(), b.getMass());
+        float ua = physics::computeVelocityAfterCollision(vb, va, b.getMass(), a.getMass());
+
+        aVel(0) = ua;
+        bVel(0) = ub;
+
+        aVel = rotation_mat.inverse() * aVel;
+        bVel = rotation_mat.inverse() * bVel;
+    }
+    
+    return std::make_tuple(aVel, bVel);
+} 
+
+
+//--------------------------------------------
+auto Game::handleOverlapping(Object& a, Object& b, float overlap) -> std::tuple<Vec2, Vec2>
+{
+    auto aPos = a.getPosition();
+    auto bPos = b.getPosition();
+
+    Vec2 shift_vector = (bPos - aPos).normalized() * overlap;
+    aPos -= shift_vector;
+    bPos += shift_vector;
+
+    return std::make_tuple(aPos, bPos);
 }
 
 

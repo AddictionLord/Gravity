@@ -15,72 +15,101 @@ int main()
     const float ZoomAmount{1.02f};
 
     sf::View view(viewCenter, resolution);
+    view.zoom(20.2f);
 
-    auto g = Game();
-    g.addObject(150.0, 150.0, sf::Color::Green,
-        composeVec2(0.0, 0.0),
-        composeVec2(0.0, 0.0),
-        composeVec2(0.0, 0.0)
-    );
-    g.addObject(150.0, 150.0, sf::Color::Red,
-        composeVec2(1000.1, 0.0),
-        composeVec2(-1.0, 0.0),
-        composeVec2(0.0, 0.0)
-    );
-    g.addObject(150.0, 150.0, sf::Color::Red,
-        composeVec2(-1000.1, 0.0),
-        composeVec2(2.0, 0.0),
-        composeVec2(0.0, 0.0)
-    );
-        g.addObject(300.0, 3000.0, sf::Color::Red,
-        composeVec2(5000.0, 5000.0),
-        composeVec2(-25.0, -1.0),
-        composeVec2(0.0, 0.0)
-    );
-
-
+    // auto g = Game();
     // g.addObject(150.0, 150.0, sf::Color::Green,
     //     composeVec2(0.0, 0.0),
     //     composeVec2(0.0, 0.0),
     //     composeVec2(0.0, 0.0)
     // );
     // g.addObject(150.0, 150.0, sf::Color::Red,
-    //     composeVec2(300.1, 0.0),
-    //     composeVec2(0.0, 0.0),
+    //     composeVec2(1000.1, 0.0),
+    //     composeVec2(-1.0, 0.0),
     //     composeVec2(0.0, 0.0)
     // );
-
-    // g.addObject(1000.0, 50000.0, sf::Color::Yellow,
-    //     composeVec2(0.0, 0.0),
-    //     composeVec2(0.0, 0.0),
-    //     composeVec2(0.0, 0.0)
-    // );
-    // g.addObject(50.0, 50.0, sf::Color::Blue,
-    //     composeVec2(20000, 0.0),
-    //     composeVec2(0.0, 10.0),
-    //     composeVec2(0.0, 0.0)
-    // );
-    // g.addObject(500.0, 500.0, sf::Color::Green,
-    //     composeVec2(-20000, 0.0),
-    //     composeVec2(0.0, 10.0),
-    //     composeVec2(0.0, 0.0)
-    // );
-    // g.addObject(100.0, 100.0, sf::Color::Red,
-    //     composeVec2(0.0, 20000),
+    // g.addObject(150.0, 150.0, sf::Color::Red,
+    //     composeVec2(-1000.1, 0.0),
     //     composeVec2(2.0, 0.0),
     //     composeVec2(0.0, 0.0)
     // );
-    // g.addObject(1000.0, 1000.0, sf::Color::Magenta,
-    //     composeVec2(-20000, 10000.0),
-    //     composeVec2(20.0, 0.0),
-    //     composeVec2(0.0, 0.0)
-    // );
-    // g.addObject(1000.0, 1000.0, sf::Color::Cyan,
-    //     composeVec2(10000, 10000.0),
-    //     composeVec2(-30.0, -30.0),
+    //     g.addObject(300.0, 3000.0, sf::Color::Red,
+    //     composeVec2(5000.0, 5000.0),
+    //     composeVec2(-25.0, -1.0),
     //     composeVec2(0.0, 0.0)
     // );
 
+
+    auto g = Game();
+    g.addObject(1000.0, 50000.0, sf::Color::Red,
+        composeVec2(0.0, 0.0),
+        composeVec2(0.0, 0.0),
+        composeVec2(0.0, 0.0),
+        true
+    );
+
+    g.addObject(150.0, 150.0, sf::Color::Green,
+        composeVec2(0.0, -5000.0),
+        composeVec2(100.0, 0.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(150.0, 150.0, sf::Color::Green,
+        composeVec2(6000.0, 0.0),
+        composeVec2(0.0, 100.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(150.0, 150.0, sf::Color::Green,
+        composeVec2(0.0, 5000.0),
+        composeVec2(-100.0, 0.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(150.0, 150.0, sf::Color::Green,
+        composeVec2(-5000.0, 0.0),
+        composeVec2(0.0, -100.0),
+        composeVec2(0.0, 0.0)
+    );
+
+    g.addObject(150.0, 150.0, sf::Color::Green,
+        composeVec2(0.0, -7000.0),
+        composeVec2(100.0, 0.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(150.0, 150.0, sf::Color::Green,
+        composeVec2(10000.0, 0.0),
+        composeVec2(0.0, 80.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(150.0, 150.0, sf::Color::Green,
+        composeVec2(0.0, 7000.0),
+        composeVec2(-90.0, 0.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(150.0, 150.0, sf::Color::Green,
+        composeVec2(-7000.0, 0.0),
+        composeVec2(0.0, -100.0),
+        composeVec2(0.0, 0.0)
+    );
+
+    g.addObject(250.0, 250.0, sf::Color::Yellow,
+        composeVec2(-15000.0, 0.0),
+        composeVec2(0.0, -60.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(250.0, 250.0, sf::Color::Yellow,
+        composeVec2(0.0, -20000.0),
+        composeVec2(40.0, 0.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(250.0, 250.0, sf::Color::Yellow,
+        composeVec2(17500.0, 0.0),
+        composeVec2(0.0, 70.0),
+        composeVec2(0.0, 0.0)
+    );
+    g.addObject(250.0, 250.0, sf::Color::Yellow,
+        composeVec2(0.0, 19000.0),
+        composeVec2(-90.0, 0.0),
+        composeVec2(0.0, 0.0)
+    );
 
 
     // Game loop

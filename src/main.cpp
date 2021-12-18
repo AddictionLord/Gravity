@@ -7,40 +7,25 @@
 
 int main()
 {
+    auto g = Game();
+    g.frameRate = 60;
+    g.speedCoef = 1.0;
+    g.dt = (1.0/g.frameRate) * g.speedCoef;
+
+    std::cout << g.dt << std::endl;
+
+
     sf::Vector2f viewCenter(0.f, 0.f);
     sf::Vector2f resolution(1920.f, 1080.f);
 
     sf::RenderWindow window(sf::VideoMode(resolution.x, resolution.y), "Gravity!");
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(g.frameRate);
     const float ZoomAmount{1.02f};
 
     sf::View view(viewCenter, resolution);
     view.zoom(20.2f);
 
-    // auto g = Game();
-    // g.addObject(150.0, 150.0, sf::Color::Green,
-    //     composeVec2(0.0, 0.0),
-    //     composeVec2(0.0, 0.0),
-    //     composeVec2(0.0, 0.0)
-    // );
-    // g.addObject(150.0, 150.0, sf::Color::Red,
-    //     composeVec2(1000.1, 0.0),
-    //     composeVec2(-1.0, 0.0),
-    //     composeVec2(0.0, 0.0)
-    // );
-    // g.addObject(150.0, 150.0, sf::Color::Red,
-    //     composeVec2(-1000.1, 0.0),
-    //     composeVec2(2.0, 0.0),
-    //     composeVec2(0.0, 0.0)
-    // );
-    //     g.addObject(300.0, 3000.0, sf::Color::Red,
-    //     composeVec2(5000.0, 5000.0),
-    //     composeVec2(-25.0, -1.0),
-    //     composeVec2(0.0, 0.0)
-    // );
 
-
-    auto g = Game();
     g.addObject(1000.0, 50000.0, sf::Color::Red,
         composeVec2(0.0, 0.0),
         composeVec2(0.0, 0.0),
@@ -138,6 +123,7 @@ int main()
         }
 
         g.panningMechanics(view, viewCenter);
+        g.timeControl();
         g.computePhysics();
 
         window.clear();

@@ -57,6 +57,15 @@ public:
         float overlap
     ) -> std::tuple<Vec2, Vec2>;
 
+    // Used to control time dilatation/contraction 
+    // via Game::speedCoef variable
+    auto timeControl() -> void;
+
+    int frameRate;
+    float speedCoef;
+    double dt;
+
+
 private:
 
     // Vector is used to store pointers to 

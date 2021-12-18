@@ -71,9 +71,9 @@ auto Game::computePhysics() -> void
         // Static objects don't get velocity and position updated
         if (!objects[i].getStatic())
         {
-            velocity = objects[i].getVelocity() + acceleration;
+            velocity = objects[i].getVelocity() + acceleration * dt;
             objects[i].setVelocity(velocity);
-            position = objects[i].getPosition() + velocity;
+            position = objects[i].getPosition() + velocity * dt;
             objects[i].setPosition(position);
         }
     }
@@ -162,5 +162,19 @@ auto Game::panningMechanics(
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
         view.setCenter(viewCenter.x, viewCenter.y += 15);
+    }
+}
+
+
+//--------------------------------------------
+auto Game::timeControl() -> void
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        dt *= 1.2;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        dt /= 1.2;
     }
 }

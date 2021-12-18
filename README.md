@@ -21,3 +21,11 @@ Run project
 ```
 ./gravity
 ```
+
+
+------------------------------------------------------------------
+How to control the simulation:
+
+Panning mechanics with arrows (Up, Down, Left, Right)
+Zoom mechanics (Mouse wheel)
+Time control (Key A and D)

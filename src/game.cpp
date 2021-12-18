@@ -133,7 +133,7 @@ auto Game::handleOverlapping(Object& a, Object& b, float overlap) -> std::tuple<
 
 
 //--------------------------------------------
-auto Game::drawObjects(sf::RenderWindow& window) -> void
+auto Game::drawGraphics(sf::RenderWindow& window) -> void
 {
     for (size_t i = 0; i < objects.size(); i++)
     {
@@ -177,4 +177,8 @@ auto Game::timeControl() -> void
     {
         dt /= 1.2;
     }
+
+    std::stringstream ss;
+    ss << "Time speed: " << (double)dt*frameRate << "x";
+    text.setString(ss.str());
 }

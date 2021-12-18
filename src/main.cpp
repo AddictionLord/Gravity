@@ -9,11 +9,7 @@ int main()
 {
     auto g = Game();
     g.frameRate = 60;
-    g.speedCoef = 1.0;
-    g.dt = (1.0/g.frameRate) * g.speedCoef;
-
-    std::cout << g.dt << std::endl;
-
+    g.dt = (1.0/g.frameRate);
 
     sf::Vector2f viewCenter(0.f, 0.f);
     sf::Vector2f resolution(1920.f, 1080.f);
@@ -22,6 +18,7 @@ int main()
     window.setFramerateLimit(g.frameRate);
     const float ZoomAmount{1.02f};
 
+    sf::View hud(viewCenter, resolution);
     sf::View view(viewCenter, resolution);
     view.zoom(20.2f);
 
@@ -128,7 +125,10 @@ int main()
 
         window.clear();
         window.setView(view);
-        g.drawObjects(window);
+        g.drawGraphics(window);
+        window.setView(hud);
+        window.draw(g.text);
+
         window.display();
     }
 

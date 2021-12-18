@@ -13,7 +13,23 @@ class Game
 {
 
 public:
-    Game(){};
+    Game()
+    {
+        if (!font.loadFromFile("../fonts/Pixellettersfull-BnJ5.ttf"))
+        {
+            std::cerr << "Error while loading font" << std::endl;
+        }
+
+        std::stringstream ss;
+        ss << "Time speed: " << (double)dt*frameRate << "x";
+
+        text.setFont(font); // font est un sf::Font
+        text.setString(ss.str());
+        text.setCharacterSize(40);
+        text.setFillColor(sf::Color::White);
+        text.setOrigin(text.getLocalBounds().width/2. + 850, text.getLocalBounds().height/2. + 540);
+    };
+
     ~Game(){};
 
     // Include object (2D circle) with defined radius,
@@ -30,12 +46,12 @@ public:
 
     // Takes objects positions, calculates accel from
     // gravity force, then velocity and new positions
-    // every iteration 
+    // every iteration (Euler numeric method)
     auto computePhysics() -> void;
 
     // After physics is computed, this method is called
     // to redraw the scene
-    auto drawObjects(sf::RenderWindow& window) -> void;
+    auto drawGraphics(sf::RenderWindow& window) -> void;
 
     // Panning mechanics
     auto panningMechanics(
@@ -62,8 +78,8 @@ public:
     auto timeControl() -> void;
 
     int frameRate;
-    float speedCoef;
     double dt;
+    sf::Text text;
 
 
 private:
@@ -71,5 +87,6 @@ private:
     // Vector is used to store pointers to 
     // every created object
     std::vector<Object> objects;
+    sf::Font font;
 
 };

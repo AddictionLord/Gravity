@@ -124,8 +124,10 @@ int main()
         g.computePhysics();
 
         window.clear();
+        // This is gmae view (with zooming, panning..)
         window.setView(view);
         g.drawGraphics(window);
+        // This is HUD view (static)
         window.setView(hud);
         window.draw(g.text);
 

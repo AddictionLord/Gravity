@@ -178,6 +178,7 @@ auto Game::timeControl() -> void
         dt /= 1.2;
     }
 
+    // Updating HUD - Time speed value
     std::stringstream ss;
     ss << "Time speed: " << (double)dt*frameRate << "x";
     text.setString(ss.str());
